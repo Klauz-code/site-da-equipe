@@ -1,0 +1,309 @@
+v<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sem Volta Para Casa — um site de fã</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0a0c14;
+    --bg-soft: #12151f;
+    --spider-red: #d62828;
+    --web-white: #eae6da;
+    --strange-blue: #2c4770;
+    --portal-purple: #7c5cbf;
+    --line: rgba(234,230,218,0.12);
+  }
+
+  *{ box-sizing: border-box; margin:0; padding:0; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background: var(--bg);
+    color: var(--web-white);
+    font-family: 'Inter', sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+
+  h1,h2,h3{
+    font-family:'Bebas Neue', sans-serif;
+    letter-spacing:0.03em;
+    font-weight:400;
+  }
+
+  a{ color:inherit; }
+
+  /* --- web pattern background, used sparingly --- */
+  .web-bg{
+    position:absolute; inset:0;
+    background-image:
+      repeating-linear-gradient(45deg, var(--line) 0 1px, transparent 1px 60px),
+      repeating-linear-gradient(-45deg, var(--line) 0 1px, transparent 1px 60px);
+    opacity:0.5;
+    pointer-events:none;
+  }
+
+  /* --- NAV --- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:18px 6vw;
+    background:linear-gradient(to bottom, rgba(10,12,20,0.95), transparent);
+    font-size:14px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+  }
+  nav .brand{ font-family:'Bebas Neue',sans-serif; font-size:20px; color:var(--spider-red); }
+  nav ul{ list-style:none; display:flex; gap:28px; }
+  nav a{ text-decoration:none; opacity:0.8; transition:opacity .2s, color .2s; }
+  nav a:hover, nav a:focus-visible{ opacity:1; color:var(--spider-red); }
+  .home-btn{
+    display:inline-block;
+    margin-top:6px;
+    border:1px solid var(--spider-red);
+    color:var(--web-white) !important;
+    padding:8px 18px;
+    text-transform:uppercase;
+    font-size:12px;
+    letter-spacing:0.1em;
+    opacity:1 !important;
+    transition: background .2s, color .2s;
+  }
+  .home-btn:hover, .home-btn:focus-visible{
+    background:var(--spider-red);
+    color:var(--web-white) !important;
+  }
+
+  /* --- HERO --- */
+  header.hero{
+    position:relative;
+    min-height:100vh;
+    display:flex; flex-direction:column; justify-content:center;
+    padding:0 6vw;
+    background: radial-gradient(circle at 80% 20%, rgba(124,92,191,0.25), transparent 55%),
+                radial-gradient(circle at 10% 90%, rgba(214,40,40,0.18), transparent 45%),
+                var(--bg);
+    overflow:hidden;
+  }
+  .hero-eyebrow{
+    font-size:13px; text-transform:uppercase; letter-spacing:0.3em;
+    color:var(--portal-purple); margin-bottom:18px;
+  }
+  .hero h1{
+    font-size: clamp(3rem, 11vw, 8.5rem);
+    color: var(--web-white);
+    line-height:0.92;
+    text-shadow: 4px 0 0 rgba(214,40,40,0.55), -4px 0 0 rgba(44,71,112,0.45);
+  }
+  .hero h1 span{ display:block; color: var(--spider-red); }
+  .hero p.sub{
+    max-width:540px;
+    margin-top:26px;
+    font-size:17px;
+    color:rgba(234,230,218,0.75);
+  }
+  .hero .crack{
+    position:absolute; right:-5%; top:0; height:100%; width:55%;
+    opacity:0.5;
+    background:
+      linear-gradient(105deg, transparent 48%, var(--portal-purple) 48.3%, transparent 49%),
+      linear-gradient(75deg, transparent 60%, var(--strange-blue) 60.3%, transparent 61%),
+      linear-gradient(95deg, transparent 30%, rgba(124,92,191,0.5) 30.3%, transparent 31%);
+    pointer-events:none;
+  }
+  .scroll-cue{
+    position:absolute; bottom:38px; left:6vw;
+    font-size:12px; text-transform:uppercase; letter-spacing:0.2em;
+    color:rgba(234,230,218,0.5);
+  }
+
+  /* --- SECTION generic --- */
+  section{ position:relative; padding:110px 6vw; max-width:1180px; margin:0 auto; }
+  .eyebrow{
+    font-size:13px; text-transform:uppercase; letter-spacing:0.25em;
+    color:var(--spider-red); margin-bottom:14px;
+  }
+  section h2{ font-size:clamp(2.2rem,5vw,3.6rem); margin-bottom:28px; }
+
+  /* --- SINOPSE --- */
+  .synopsis{ display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; }
+  .synopsis p{ color:rgba(234,230,218,0.85); font-size:17px; }
+  .synopsis p + p{ margin-top:16px; }
+  .fact-card{
+    background:var(--bg-soft);
+    border:1px solid var(--line);
+    border-left:3px solid var(--spider-red);
+    padding:24px 26px;
+  }
+  .fact-card h3{ font-size:1.3rem; margin-bottom:10px; color:var(--web-white); }
+  .fact-card ul{ list-style:none; }
+  .fact-card li{ padding:8px 0; border-top:1px solid var(--line); font-size:15px; color:rgba(234,230,218,0.75); }
+  .fact-card li:first-child{ border-top:none; }
+  .fact-card li b{ color:var(--web-white); font-weight:600; }
+
+  /* --- MULTIVERSO (villains) --- */
+  .multiverse{ background:var(--bg-soft); }
+  .rift{ text-align:center; margin-bottom:56px; }
+  .rift p{ max-width:640px; margin:0 auto; color:rgba(234,230,218,0.75); }
+  .villains{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(210px,1fr)); gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .villain{
+    background:var(--bg);
+    padding:32px 24px;
+    transition: background .25s;
+  }
+  .villain:hover{ background:#161a26; }
+  .villain .tag{ font-size:12px; letter-spacing:0.15em; text-transform:uppercase; color:var(--strange-blue); }
+  .villain h3{ font-size:1.7rem; margin:8px 0 10px; }
+  .villain p{ font-size:14px; color:rgba(234,230,218,0.7); }
+
+  /* --- ELENCO --- */
+  .cast-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:2px;
+    background:var(--line); border:1px solid var(--line);
+  }
+  .cast-item{ background:var(--bg); padding:22px 24px; }
+  .cast-item .role{ color:var(--spider-red); font-size:12px; text-transform:uppercase; letter-spacing:0.12em; }
+  .cast-item .actor{ font-family:'Bebas Neue',sans-serif; font-size:1.6rem; margin-top:6px; }
+
+  /* --- CURIOSIDADES --- */
+  .trivia{
+    display:grid; grid-template-columns: 60px 1fr; gap:0 22px;
+  }
+  .trivia .num{
+    font-family:'Bebas Neue',sans-serif; font-size:2rem; color:var(--portal-purple);
+    line-height:1;
+  }
+  .trivia-item{ display:contents; }
+  .trivia-item p{ padding-bottom:30px; border-bottom:1px solid var(--line); margin-bottom:30px; color:rgba(234,230,218,0.8); }
+  .trivia-item:last-child p{ border-bottom:none; }
+
+  footer{
+    padding:50px 6vw 40px;
+    text-align:center;
+    color:rgba(234,230,218,0.45);
+    font-size:13px;
+    border-top:1px solid var(--line);
+  }
+  footer .brand{ color:var(--spider-red); font-family:'Bebas Neue',sans-serif; font-size:18px; display:block; margin-bottom:8px; }
+
+  @media (max-width: 800px){
+    nav ul{ display:none; }
+    .synopsis{ grid-template-columns:1fr; }
+    section{ padding:80px 6vw; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+  }
+
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--spider-red); outline-offset:3px;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">S.V.C.</div>
+  <ul>
+    <li><a href="#sinopse">Sinopse</a></li>
+    <li><a href="#multiverso">Multiverso</a></li>
+    <li><a href="#elenco">Elenco</a></li>
+    <li><a href="#curiosidades">Curiosidades</a></li>
+  </ul>
+</nav>
+
+<header class="hero">
+  <div class="web-bg"></div>
+  <div class="crack"></div>
+  <h1>HOMEM-ARANHA<span>SEM VOLTA PARA CASA</span></h1>
+  <p class="sub">Quando a identidade de Peter Parker é revelada ao mundo, um feitiço que dá errado abre as portas do multiverso — e traz de volta ameaças de outras realidades.</p>
+  <p class="scroll-cue">role para saber mais ↓</p>
+</header>
+
+<section id="sinopse">
+  <p class="eyebrow">A história</p>
+  <h2>Um feitiço, um erro e um multiverso inteiro</h2>
+  <div class="synopsis">
+    <div>
+      <p>Depois de ter sua identidade secreta exposta, Peter Parker pede ajuda ao Doutor Estranho para que o mundo esqueça que ele é o Homem-Aranha. O feitiço começa a dar errado bem no meio do processo, e a fissura criada entre realidades passa a atrair pessoas de outros universos que também conhecem um Homem-Aranha — a maioria delas, infelizmente, são vilões.</p>
+      <p>Peter precisa então decidir o que fazer com essas figuras perigosas vindas de outros mundos, enquanto tenta proteger as pessoas que ama e entender o que realmente significa vestir a máscara.</p>
+    </div>
+    <div class="fact-card">
+      <h3>Ficha técnica</h3>
+      <ul>
+        <li><b>Lançamento:</b> dezembro de 2021</li>
+        <li><b>Direção:</b> Jon Watts</li>
+        <li><b>Terceiro filme</b> da trilogia do Homem-Aranha no MCU</li>
+        <li><b>Marco:</b> reúne vilões de sagas cinematográficas anteriores do herói</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="multiverso" class="multiverse">
+  <div class="rift">
+    <p class="eyebrow">O feitiço deu errado</p>
+    <h2>Visitantes de outras realidades</h2>
+    <p>A fissura multiversal traz para o mundo de Peter figuras que já enfrentaram outras versões do Homem-Aranha — cada uma carregando sua própria história e seus próprios conflitos.</p>
+  </div>
+  <div class="villains">
+    <div class="villain"><span class="tag">Cientista</span><h3>Doutor Octopus</h3><p>Um gênio da engenharia dominado por braços mecânicos com vontade própria.</p></div>
+    <div class="villain"><span class="tag">Ex-soldado</span><h3>Duende Verde</h3><p>Uma fórmula experimental libera o lado mais sombrio de quem a consome.</p></div>
+    <div class="villain"><span class="tag">Elétrico</span><h3>Electro</h3><p>Um homem comum transformado em pura energia elétrica após um acidente.</p></div>
+    <div class="villain"><span class="tag">Camuflado</span><h3>Lagarto</h3><p>Uma tentativa de cura genética que sai completamente do controle.</p></div>
+    <div class="villain"><span class="tag">Areia</span><h3>Homem-Areia</h3><p>Um fugitivo cujo corpo passa a ser feito literalmente de areia.</p></div>
+  </div>
+</section>
+
+<section id="elenco">
+  <p class="eyebrow">Quem dá vida à história</p>
+  <h2>Elenco principal</h2>
+  <div class="cast-grid">
+    <div class="cast-item"><div class="role">Peter Parker</div><div class="actor">Tom Holland</div></div>
+    <div class="cast-item"><div class="role">MJ</div><div class="actor">Zendaya</div></div>
+    <div class="cast-item"><div class="role">Ned Leeds</div><div class="actor">Jacob Batalon</div></div>
+    <div class="cast-item"><div class="role">Doutor Estranho</div><div class="actor">Benedict Cumberbatch</div></div>
+    <div class="cast-item"><div class="role">Tia May</div><div class="actor">Marisa Tomei</div></div>
+    <div class="cast-item"><div class="role">Happy Hogan</div><div class="actor">Jon Favreau</div></div>
+  </div>
+</section>
+
+<section id="curiosidades">
+  <p class="eyebrow">Bastidores</p>
+  <h2>Curiosidades</h2>
+  <div class="trivia">
+    <div class="trivia-item">
+      <span class="num">01</span>
+      <p>O filme reúne, pela primeira vez em uma produção do Universo Cinematográfico Marvel, vilões vindos de sagas anteriores do herói produzidas por outros estúdios.</p>
+    </div>
+    <div class="trivia-item">
+      <span class="num">02</span>
+      <p>Grande parte do elenco manteve segredo sobre suas participações até o lançamento, e cartazes e trailers foram construídos para preservar as surpresas da trama.</p>
+    </div>
+    <div class="trivia-item">
+      <span class="num">03</span>
+      <p>O longa se tornou um dos maiores sucessos de bilheteria da história do cinema, impulsionado justamente pelo mistério em torno de seu elenco.</p>
+    </div>
+    <div class="trivia-item">
+      <span class="num">04</span>
+      <p>A trama fecha um ciclo de três filmes do herói e é lembrada por unir nostalgia, ação e um desfecho emocional para a jornada de Peter Parker.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="brand">S.V.C.</span>
+  <a href="../index.html" class="home-btn">Início</a>
+</footer>
+
+</body>
+</html>
