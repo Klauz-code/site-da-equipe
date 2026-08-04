@@ -1,0 +1,199 @@
+    <!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Páginas de Filmes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+    :root{
+        --bg: #0b0c10;
+        --bg-card: #16181d;
+        --text: #ece7dd;
+        --muted: #9a978f;
+        --gold: #c9a227;
+        --gold-soft: rgba(201, 162, 39, 0.35);
+    }
+
+    *{
+        box-sizing: border-box;
+    }
+
+    body{
+        margin: 0;
+        background-color: var(--bg);
+        color: var(--text);
+        text-align: center;
+        font-family: 'Inter', sans-serif;
+    }
+
+    /* Faixa decorativa de rolo de filme, no topo e no rodapé */
+    .film-strip{
+        display: flex;
+        justify-content: space-evenly;
+        padding: 10px 0;
+        background: linear-gradient(180deg, #000 0%, #000 100%);
+    }
+    .film-strip span{
+        width: 12px;
+        height: 12px;
+        border-radius: 2px;
+        background-color: var(--bg);
+        opacity: 0.9;
+    }
+
+    header{
+        padding: 60px 20px 40px;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .eyebrow{
+        font-family: 'Bebas Neue', sans-serif;
+        letter-spacing: 6px;
+        font-size: 14px;
+        color: var(--gold);
+        text-transform: uppercase;
+        margin-bottom: 14px;
+    }
+
+    h1{
+        font-family: 'Playfair Display', serif;
+        font-style: italic;
+        font-weight: 700;
+        font-size: clamp(34px, 6vw, 56px);
+        margin: 0 0 18px;
+        line-height: 1.1;
+    }
+
+    p.intro{
+        font-size: 18px;
+        line-height: 1.6;
+        color: var(--muted);
+        margin: 0 auto;
+        max-width: 520px;
+    }
+
+    main{
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px 20px 70px;
+    }
+
+    .grid{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 32px;
+    }
+
+    figure{
+        margin: 0;
+        background-color: var(--bg-card);
+        border-radius: 6px;
+        overflow: hidden;
+        border: 1px solid rgba(255,255,255,0.06);
+        transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+    }
+
+    figure:hover{
+        transform: translateY(-6px);
+        box-shadow: 0 20px 45px var(--gold-soft);
+        border-color: var(--gold-soft);
+    }
+
+    figure a{
+        display: block;
+    }
+
+    figure img{
+        width: 100%;
+        height: auto;
+        display: block;
+        aspect-ratio: 2 / 3;
+        object-fit: cover;
+    }
+
+    figcaption{
+        font-family: 'Bebas Neue', sans-serif;
+        letter-spacing: 2px;
+        font-size: 22px;
+        padding: 16px 10px 20px;
+        text-transform: uppercase;
+    }
+
+    footer{
+        padding: 30px;
+        font-size: 13px;
+        color: var(--muted);
+    }
+
+    @media (max-width: 600px){
+        .grid{
+            grid-template-columns: 1fr;
+        }
+        header{
+            padding: 44px 20px 30px;
+        }
+    }
+</style>
+</head>
+<body>
+
+    <div class="film-strip">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <header>
+        <div class="eyebrow">Sessão da Crítica</div>
+        <h1>Páginas de Filmes</h1>
+        <p class="intro">Bem-vindo ao nosso site, nele falamos sobre nossos filmes favoritos. Clique em um pôster para ver mais informações sobre um filme.</p>
+    </header>
+
+    <main>
+        <div class="grid">
+            <figure>
+                <a href="paginas/aluno-guilherme.html">
+                    <img src="https://image.tmdb.org/t/p/original/rThVGKNCC1MTjAHfAlvflgvRh8V.jpg" alt="Esquadrão Suicida">
+                </a>
+                <figcaption>Esquadrão Suicida</figcaption>
+            </figure>
+
+            <figure>
+                <a href="paginas/aluno-miguelmatias.html">
+                    <img src="https://upload.wikimedia.org/wikipedia/pt/a/ac/Saving_Private_Ryan_poster.jpg" alt="O Resgate do Soldado Ryan">
+                </a>
+                <figcaption>O Resgate do Soldado Ryan</figcaption>
+            </figure>
+
+            <figure>
+                <a href="paginas/aluno-yuji.html">
+                    <img src="https://image.tmdb.org/t/p/original/7MateM03vzhOxD5WjPW754TKnt3.jpg" alt="Star Wars III">
+                </a>
+                <figcaption>Star Wars III</figcaption>
+            </figure>
+
+            <figure>
+                <a href="paginas/alunoleonardo.html">
+                    <img src="https://br.web.img3.acsta.net/r_1280_720/pictures/21/11/08/10/31/0364509.jpg" alt="Homem-Aranha: Sem Volta Para Casa">
+                </a>
+                <figcaption>Homem-Aranha: Sem Volta Para Casa</figcaption>
+            </figure>
+        </div>
+    </main>
+
+    <footer>
+        Feito por: Guilherme Alves Santana, Leonardo Miranda Prado, Miguel Matias De Almeida Santos e Miguel Yuji De Brito
+    </footer>
+
+    <div class="film-strip">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+</body>
+</html>
