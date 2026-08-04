@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O Resgate do Soldado Ryan | Dossiê de Missão</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Permanent+Marker&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --fundo-principal: #eeead6;
+    --fundo-card: #e8e6de;
+    --fundo-detalhe: #dad7cd;
+    
+    --militar: #4b5320;
+    --militar-claro: #8a9a5b;
+    --amarelo-alerta: #b58d13;
+    --destaque: #bc4749;
+    --texto: #2b2d2f;
+    --texto-fraco: #4a524a;
+    --linha: #b8b5a8;
+  }
+
+  * {
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--fundo-principal);
+    color: var(--texto);
+    font-family: 'Space Mono', monospace;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--linha) 1px, transparent 1px),
+      linear-gradient(90deg, var(--linha) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: .25;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Anton', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: .02em;
+  }
+
+  .rotulo {
+    font-family: 'Permanent Marker', cursive;
+    color: var(--destaque);
+  }
+
+  header {
+    position: sticky;
+    top: 0;
+    background: var(--fundo-principal);
+    border-bottom: 2px solid var(--militar);
+    z-index: 100;
+    padding: 12px 32px;
+  }
+
+  .nav-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  p#title {
+    font-family: 'Anton', sans-serif;
+    font-size: 1.2rem;
+    color: var(--militar);
+    text-transform: uppercase;
+    letter-spacing: .05em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    align-items: center;
+  }
+
+  .nav-links a {
+    color: var(--texto);
+    text-decoration: none;
+    font-size: .8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: color .2s;
+  }
+
+  .nav-links a:hover {
+    color: var(--destaque);
+  }
+
+  .button-inicio {
+    background-color: var(--militar);
+    color: var(--fundo-principal);
+    border: none;
+    font-family: 'Space Mono', monospace;
+    font-size: .75rem;
+    font-weight: bold;
+    border-radius: 4px;
+    padding: 8px 16px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color .2s, box-shadow .2s;
+  }
+
+  .button-inicio a {
+    color: var(--fundo-principal);
+    text-decoration: none;
+  }
+
+  .button-inicio:hover {
+    background-color: var(--militar-claro);
+    box-shadow: 2px 2px 0px var(--texto);
+  }
+
+  section {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 32px;
+  }
+
+  .eyebrow {
+    font-size: .75rem;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--militar-claro);
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+
+  h2.titulo-secao {
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    margin-bottom: 32px;
+    color: var(--militar);
+    border-bottom: 3px solid var(--militar);
+    display: inline-block;
+    padding-bottom: 8px;
+  }
+
+  .hero {
+    min-height: 40vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 60px;
+  }
+
+  .hero h1 {
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    line-height: .95;
+    color: var(--militar);
+    margin-bottom: 20px;
+  }
+
+  .hero p.subtitulo {
+    font-size: 1.05rem;
+    color: var(--texto-fraco);
+    max-width: 800px;
+  }
+
+  .sinopse-box {
+    background: var(--fundo-card);
+    border: 1px solid var(--linha);
+    padding: 40px;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 40px;
+  }
+
+  .sinopse-texto p {
+    margin-bottom: 16px;
+  }
+
+  .sinopse-box img {
+    width: 100%;
+    aspect-ratio: 2/3;
+    object-fit: cover;
+    border: 2px solid var(--militar);
+    box-shadow: 6px 6px 0px var(--militar);
+  }
+
+  .ficha-tecnica {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 32px;
+  }
+
+  .ficha-item {
+    background: var(--fundo-detalhe);
+    padding: 16px;
+    border-left: 4px solid var(--militar);
+  }
+
+  .ficha-item .rotulo-item {
+    font-size: .7rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--texto-fraco);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .ficha-item .valor-item {
+    font-family: 'Anton', sans-serif;
+    font-size: 1.1rem;
+    color: var(--militar);
+  }
+
+  .personagens-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+  }
+
+  .card-personagem {
+    background: var(--fundo-card);
+    border: 1px solid var(--linha);
+    display: flex;
+    flex-direction: column;
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+
+  .card-personagem:hover {
+    transform: translateY(-4px);
+    box-shadow: 6px 6px 0px var(--militar);
+  }
+
+  .card-personagem img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    border-bottom: 2px solid var(--militar);
+  }
+
+  .card-personagem .info {
+    padding: 20px;
+  }
+
+  .card-personagem .nome {
+    font-family: 'Anton', sans-serif;
+    font-size: 1.5rem;
+    color: var(--militar);
+  }
+
+  .card-personagem .interprete {
+    font-size: .75rem;
+    color: var(--destaque);
+    font-weight: bold;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+
+  .card-personagem .desc-personagem {
+    font-size: .85rem;
+    color: var(--texto-fraco);
+  }
+
+  .curiosidades-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .curiosidade-item {
+    background: var(--fundo-card);
+    border-left: 6px solid var(--amarelo-alerta);
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .curiosidade-item .num {
+    font-family: 'Anton', sans-serif;
+    font-size: 2.5rem;
+    color: var(--amarelo-alerta);
+    text-align: center;
+  }
+
+  .curiosidade-item h3 {
+    color: var(--militar);
+    font-size: 1.2rem;
+    margin-bottom: 4px;
+  }
+
+  .curiosidade-item p {
+    color: var(--texto-fraco);
+    font-size: .9rem;
+  }
+
+  .galeria-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .galeria-grid img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border: 3px solid var(--fundo-card);
+    box-shadow: 3px 3px 6px rgba(0,0,0,0.1);
+    transition: transform .2s;
+  }
+
+  .galeria-grid img:hover {
+    transform: scale(1.03);
+  }
+
+  footer {
+    background: var(--fundo-card);
+    border-top: 2px solid var(--militar);
+    text-align: center;
+    padding: 40px 32px;
+    margin-top: 60px;
+  }
+
+  footer p {
+    color: var(--texto-fraco);
+    font-size: .85rem;
+  }
+
+  @media (max-width: 850px) {
+    .sinopse-box { grid-template-columns: 1fr; }
+    .galeria-grid { grid-template-columns: repeat(2, 1fr); }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-container">
+    <p id="title">O Resgate do Soldado Ryan</p>
+    <ul class="nav-links">
+      <li><a href="#sinopse">A Missão</a></li>
+      <li><a href="#personagens">O Pelotão</a></li>
+      <li><a href="#curiosidades">Curiosidades</a></li>
+    </ul>
+    <button class="button-inicio"><a href="../index.html">Página Inicial</a></button>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>O Resgate do Soldado Ryan</h1>
+  <p class="subtitulo">Após o brutal desembarque na Normandia, um grupo de soldados americanos recebe a missão de penetrar em território inimigo para resgatar o único sobrevivente de quatro irmãos combatentes.</p>
+</section>
+
+<section id="sinopse">
+  <div class="eyebrow">01 · A Operação</div>
+  <h2 class="titulo-secao">Atrás das linhas inimigas</h2>
+  
+  <div class="sinopse-box">
+    <div class="sinopse-texto">
+      <p>Em 6 de junho de 1944, no Dia D, forças aliadas desembarcam na praia de Omaha. O Capitão John Miller lidera seus homens através do inferno de fogo e consegue ultrapassar as defesas alemãs.</p>
+      <p>Logo após a batalha, o comando militar descobre que três irmãos da família Ryan morreram na guerra em um curto intervalo de tempo. Para evitar que uma mãe perca todos os seus filhos, o exército ordena uma busca pelo quarto irmão, o Soldado James Ryan, perdido em algum lugar na França ocupada.</p>
+      <p>Miller reúne um pequeno pelotão e parte em uma jornada de auto-sacrifício e dilemas morais, questionando o valor de arriscar a vida de oito homens para salvar apenas um.</p>
+
+      <div class="ficha-tecnica">
+        <div class="ficha-item">
+          <span class="rotulo-item">Direção</span>
+          <span class="valor-item">Steven Spielberg</span>
+        </div>
+        <div class="ficha-item">
+          <span class="rotulo-item">Lançamento</span>
+          <span class="valor-item">1998</span>
+        </div>
+        <div class="ficha-item">
+          <span class="rotulo-item">Gênero</span>
+          <span class="valor-item">Guerra / Drama</span>
+        </div>
+        <div class="ficha-item">
+          <span class="rotulo-item">Oscar</span>
+          <span class="valor-item">5 Estatuetas</span>
+        </div>
+      </div>
+    </div>
+    
+    <div>
+      <img src="assets-matias/Poster_filme.png" alt="Pôster oficial do filme O Resgate do Soldado Ryan">
+    </div>
+  </div>
+</section>
+
+<section id="personagens">
+  <div class="eyebrow">02 · O Pelotão</div>
+  <h2 class="titulo-secao">Os Homens da Missão</h2>
+
+  <div class="personagens-grid">
+
+    <div class="card-personagem">
+      <img src="assets-matias/foto-tom-hanks2.jpg" alt="Capitão John Miller">
+      <div class="info">
+        <div class="nome">Capitão Miller</div>
+        <div class="interprete">Tom Hanks</div>
+        <div class="desc-personagem">Um líder calmo, reservado e respeitado. Tenta manter seus homens vivos enquanto cumpre ordens em um cenário caótico.</div>
+      </div>
+    </div>
+
+    <div class="card-personagem">
+      <img src="assets-matias/foto-matt-damon.png" alt="Soldado James Ryan">
+      <div class="info">
+        <div class="nome">Soldado James Ryan</div>
+        <div class="interprete">Matt Damon</div>
+        <div class="desc-personagem">Paraquedista da 101ª Divisão Aerotransportada. O jovem soldado que se torna o objetivo da arriscada missão de resgate.</div>
+      </div>
+    </div>
+
+    <div class="card-personagem">
+      <img src="assets-matias/foto-tom-sizemore.png" alt="Sargento Horvath">
+      <div class="info">
+        <div class="nome">Sargento Horvath</div>
+        <div class="interprete">Tom Sizemore</div>
+        <div class="desc-personagem">O braço direito e amigo leal de Miller. Um veterano experiente que mantém a disciplina do grupo.</div>
+      </div>
+    </div>
+
+    <div class="card-personagem">
+      <img src="assets-matias/foto-barry-pepper.png" alt="Atirador Jackson">
+      <div class="info">
+        <div class="nome">Atirador Jackson</div>
+        <div class="interprete">Barry Pepper</div>
+        <div class="desc-personagem">Atirador de elite do pelotão. Um homem profundamente religioso com precisão mortal e frieza em combate.</div>
+      </div>
+    </div>
+
+    <div class="card-personagem">
+      <img src="assets-matias/foto-adam-goldberg.png" alt="Soldado Mellish">
+      <div class="info">
+        <div class="nome">Soldado Mellish</div>
+        <div class="interprete">Adam Goldberg</div>
+        <div class="desc-personagem">Soldado de infantaria judeu-americano, movido pela raiva e pelo desejo de combater as forças nazistas na Europa.</div>
+      </div>
+    </div>
+
+    <div class="card-personagem">
+      <img src="assets-matias/foto-jeremy-davies.png" alt="Cabo Upham">
+      <div class="info">
+        <div class="nome">Cabo Upham</div>
+        <div class="interprete">Jeremy Davies</div>
+        <div class="desc-personagem">Tradutor sem experiência em combate recrutado para a missão. Representa o choque e o medo de um novato na guerra.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="curiosidades">
+  <div class="eyebrow">03 · Produção</div>
+  <h2 class="titulo-secao">Curiosidades do Filme</h2>
+
+  <div class="curiosidades-lista">
+    <div class="curiosidade-item">
+      <div class="num">01</div>
+      <div>
+        <h3>O Treinamento do Elenco</h3>
+        <p>Os atores passaram por um rigoroso treinamento militar de vários dias no mato para sentirem o cansaço real. Matt Damon foi dispensado de propósito para gerar um ressentimento genuíno do grupo contra ele no filme.</p>
+      </div>
+    </div>
+    
+    <div class="curiosidade-item">
+      <div class="num">02</div>
+      <div>
+        <h3>A Cena do Dia D</h3>
+        <p>A famosa sequência inicial da praia de Omaha custou cerca de 12 milhões de dólares, envolveu mais de 1.500 figurantes e demorou quatro semanas para ser filmada.</p>
+      </div>
+    </div>
+
+    <div class="curiosidade-item">
+      <div class="num">03</div>
+      <div>
+        <h3>Impacto em Veteranos</h3>
+        <p>O nível de realismo do áudio e dos efeitos visuais da batalha inicial foi tão alto que causou crises de ansiedade e estresse pós-traumático em veteranos reais que assistiram à estreia.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<footer>
+  <p>Página informativa sobre a obra-prima cinematográfica de Steven Spielberg.</p>
+</footer>
+
+</body>
+</html>
