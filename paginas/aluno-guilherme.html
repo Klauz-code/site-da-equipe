@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Esquadrão Suicida | Task Force X</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Permanent+Marker&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --preto: #0c0c0d;
+    --preto-2: #17171a;
+    --amarelo: #f2d31e;
+    --magenta: #e8267a;
+    --toxico: #7fff2a;
+    --ciano: #2ad9f2;
+    --texto: #e9e7e1;
+    --texto-fraco: #948f8f;
+    --linha: #2a2a2d;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--preto);
+    color:var(--texto);
+    font-family:'Space Mono', monospace;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background-image:
+      linear-gradient(var(--linha) 1px, transparent 1px),
+      linear-gradient(90deg, var(--linha) 1px, transparent 1px);
+    background-size:64px 64px;
+    opacity:.15;
+    pointer-events:none;
+    z-index:0;
+  }
+
+  h1,h2,h3{
+    font-family:'Anton', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.02em;
+  }
+
+  .rotulo{
+    font-family:'Permanent Marker', cursive;
+    color:var(--amarelo);
+  }
+
+  a{color:var(--ciano);}
+
+  section{
+    position:relative;
+    z-index:1;
+    max-width:1080px;
+    margin:0 auto;
+    padding:100px 32px;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    max-width:1080px;
+    margin:0 auto;
+    padding:32px;
+    position:relative;
+    z-index:1;
+  }
+
+  .hero .ficha{
+    font-family:'Space Mono', monospace;
+    font-size:.75rem;
+    letter-spacing:.3em;
+    color:var(--toxico);
+    text-transform:uppercase;
+    margin-bottom:20px;
+    border-left:3px solid var(--toxico);
+    padding-left:12px;
+  }
+
+  .hero h1{
+    font-size:clamp(3.2rem, 11vw, 8.5rem);
+    line-height:.88;
+    color:var(--texto);
+    -webkit-text-stroke:2px var(--magenta);
+    text-shadow:6px 6px 0 var(--magenta), 12px 12px 0 var(--amarelo);
+    margin-bottom:28px;
+  }
+
+  .hero p.subtitulo{
+    max-width:520px;
+    font-size:1.05rem;
+    color:var(--texto-fraco);
+    margin-bottom:36px;
+  }
+
+  .selo{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    align-self:flex-start;
+    border:2px dashed var(--amarelo);
+    color:var(--amarelo);
+    padding:10px 18px;
+    font-size:.8rem;
+    letter-spacing:.15em;
+    text-transform:uppercase;
+    width:fit-content;
+    transform:rotate(-2deg);
+  }
+
+  /* ---------- IMAGENS (tamanho padrão por seção) ---------- */
+  img{
+    display:block;
+    width:100%;
+  }
+
+  /* Pôster da sinopse: proporção de cartaz (2:3) */
+  .sinopse-grid img{
+    aspect-ratio:2/3;
+    object-fit:cover;
+    border:3px solid var(--magenta);
+    border-radius:2px;
+  }
+
+  /* Fotos dos personagens: retrato ~1050x1500 (7:10) */
+  .card-personagem img{
+    aspect-ratio:1050/1500;
+    object-fit:cover;
+    border-bottom:3px solid var(--linha);
+  }
+
+  /* Fotos da galeria: quase quadradas */
+  .galeria-grid img{
+    aspect-ratio:1/1;
+    object-fit:cover;
+    border:1px solid var(--linha);
+    border-radius:2px;
+  }
+
+  /* ---------- SEÇÕES GERAIS ---------- */
+  .eyebrow{
+    font-size:.75rem;
+    letter-spacing:.3em;
+    text-transform:uppercase;
+    color:var(--ciano);
+    margin-bottom:14px;
+  }
+
+  h2.titulo-secao{
+    font-size:clamp(2.2rem, 5vw, 3.6rem);
+    margin-bottom:36px;
+    color:var(--texto);
+  }
+
+  .sinopse-grid{
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    gap:48px;
+    align-items:start;
+  }
+
+  .sinopse-grid p{
+    margin-bottom:18px;
+    color:var(--texto);
+  }
+
+  .sinopse-grid p + p{color:var(--texto-fraco);}
+
+  @media (max-width:800px){
+    .sinopse-grid{grid-template-columns:1fr;}
+  }
+
+  /* ---------- FICHA TÉCNICA ---------- */
+  .ficha-tecnica{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(180px,1fr));
+    gap:1px;
+    background:var(--linha);
+    border:1px solid var(--linha);
+    margin-top:48px;
+  }
+
+  .ficha-tecnica div{
+    background:var(--preto);
+    padding:20px;
+  }
+
+  .ficha-tecnica .rotulo-item{
+    font-size:.7rem;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:var(--toxico);
+    margin-bottom:8px;
+    display:block;
+  }
+
+  .ficha-tecnica .valor-item{
+    font-family:'Anton', sans-serif;
+    font-size:1.1rem;
+  }
+
+  /* ---------- PERSONAGENS ---------- */
+  .personagens-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(260px,1fr));
+    gap:28px;
+  }
+
+  .card-personagem{
+    border:1px solid var(--linha);
+    background:var(--preto-2);
+    display:flex;
+    flex-direction:column;
+    transition:transform .2s ease, border-color .2s ease;
+  }
+
+  .card-personagem:hover{
+    transform:translateY(-4px);
+    border-color:var(--magenta);
+  }
+
+  .card-personagem .info{
+    padding:20px;
+  }
+
+  .card-personagem .nome{
+    font-family:'Anton', sans-serif;
+    font-size:1.4rem;
+    color:var(--amarelo);
+    margin-bottom:2px;
+  }
+
+  .card-personagem .interprete{
+    font-size:.78rem;
+    color:var(--texto-fraco);
+    margin-bottom:12px;
+  }
+
+  .card-personagem .desc-personagem{
+    font-size:.88rem;
+    color:var(--texto);
+  }
+
+  /* ---------- CURIOSIDADES ---------- */
+  .curiosidades{
+    display:grid;
+    gap:24px;
+  }
+
+  .curiosidade{
+    display:grid;
+    grid-template-columns:80px 1fr;
+    gap:20px;
+    padding-bottom:24px;
+    border-bottom:1px solid var(--linha);
+  }
+
+  .curiosidade .num{
+    font-family:'Anton', sans-serif;
+    font-size:2.4rem;
+    color:var(--magenta);
+    opacity:.5;
+  }
+
+  /* ---------- GALERIA ---------- */
+  .galeria-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+    gap:20px;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    text-align:center;
+    padding:60px 32px;
+    color:var(--texto-fraco);
+    font-size:.8rem;
+    border-top:1px solid var(--linha);
+  }
+
+  footer .rotulo{font-size:1.4rem;}
+
+  /* ---------- BOTÕES DE NAVEGAÇÃO ---------- */
+  .nav-botoes{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
+    margin-top:32px;
+  }
+
+  .botao{
+    font-family:'Anton', sans-serif;
+    font-size:.95rem;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    text-decoration:none;
+    color:var(--preto);
+    background:var(--amarelo);
+    border:2px solid var(--amarelo);
+    padding:14px 28px;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    cursor:pointer;
+    transition:transform .15s ease, background .15s ease, color .15s ease;
+  }
+
+  .botao:hover{
+    transform:translateY(-3px);
+  }
+
+  .botao.secundario{
+    background:transparent;
+    color:var(--amarelo);
+    border-color:var(--amarelo);
+  }
+
+  .botao.secundario:hover{
+    background:var(--amarelo);
+    color:var(--preto);
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="ficha">Dossiê Task Force X · Confidencial</div>
+  <h1>Esquadrão<br>Suicida</h1>
+  <p class="subtitulo">Uma equipe de supervilões presos é recrutada pelo governo para missões de altíssimo risco. Em troca de reduzir suas penas, eles entram em campo sabendo que, se algo der errado, são totalmente descartáveis.</p>
+  <div class="selo">⚠ Missão de alto risco · Retorno não garantido</div>
+</section>
+
+<!-- SINOPSE -->
+<section id="sinopse">
+  <div class="eyebrow">01 · Sobre o filme</div>
+  <h2 class="titulo-secao">A missão impossível</h2>
+  <div class="sinopse-grid">
+    <div>
+      <p>A funcionária do governo Amanda Waller reúne um grupo de criminosos perigosos, presos na prisão de segurança máxima de Belle Reve, para formar a Task Force X. A proposta é simples: aceitar missões extremamente arriscadas em troca de anos a menos de pena.</p>
+      <p>Cada integrante carrega um explosivo implantado no pescoço, ativado caso tente fugir ou desobedecer ordens. Sob o comando do coronel Rick Flag, o grupo é enviado para conter uma ameaça sobrenatural que coloca uma cidade inteira em risco, tendo que aprender a confiar uns nos outros para sobreviver.</p>
+      <p>O filme mistura ação, humor ácido e uma trilha sonora marcante para contar a história de personagens que nunca foram tratados como heróis, mas que se veem obrigados a agir como um.</p>
+    </div>
+    <img src="assets-guilherme/poster-esquadrao-suicida.png" alt="Pôster oficial do filme (capa vertical, formato de cartaz de cinema)">
+  </div>
+
+  <div class="ficha-tecnica">
+    <div>
+      <span class="rotulo-item">Gênero</span>
+      <span class="valor-item">Ação / Aventura</span>
+    </div>
+    <div>
+      <span class="rotulo-item">Estúdio</span>
+      <span class="valor-item">DC Films</span>
+    </div>
+    <div>
+      <span class="rotulo-item">Baseado em</span>
+      <span class="valor-item">Quadrinhos da DC</span>
+    </div>
+    <div>
+      <span class="rotulo-item">Classificação</span>
+      <span class="valor-item">Não recomendado p/ menores</span>
+    </div>
+  </div>
+</section>
+
+<!-- PERSONAGENS -->
+<section id="personagens">
+  <div class="eyebrow">02 · Task Force X</div>
+  <h2 class="titulo-secao">Os condenados</h2>
+
+  <div class="personagens-grid">
+
+    <div class="card-personagem">
+      <img src="assets-guilherme/foto-deadshot.jpg" alt="Foto do Deadshot (atirador de elite, uniforme com máscara/mira no capacete)">
+      <div class="info">
+        <div class="nome">Deadshot</div>
+        <div class="interprete">Atirador de elite mercenário</div>
+        <div class="desc-personagem">Considerado o assassino mais preciso do mundo. Nunca erra um tiro, mas luta para ser um bom pai para a filha enquanto está preso.</div>
+      </div>
+    </div>
+
+    <div class="card-personagem">
+      <img src="assets-guilherme/foto-harley-quinn.jpg" alt="Foto da Harley Quinn (cabelo bicolor rosa e azul, jaqueta com estampa Property of Joker)">
+      <div class="info">
+        <div class="nome">Harley Quinn</div>
+        <div class="interprete">Ex-psiquiatra, agora vilã imprevisível</div>
+        <div class="desc-personagem">Ex-terapeuta do Asilo Arkham que se apaixonou por um de seus pacientes e se tornou uma das criminosas mais caóticas de Gotham.</div>
+      </div>
+    </div>
+
+    <div class="card-personagem">
+      <img src="assets-guilherme/foto-capitao-bumerangue.avif" alt="Foto do Capitão Bumerangue (visual descuidado, bumerangue nas mãos)">
+      <div class="info">
+        <div class="nome">Capitão Bumerangue</div>
+        <div class="interprete">Criminoso australiano</div>
+        <div class="desc-personagem">Ladrão folgado e sarcástico, especialista em armas-bumerangue e em fugir de qualquer tipo de responsabilidade.</div>
+      </div>
+    </div>
+
+    <div class="card-personagem">
+      <img src="assets-guilherme/foto-el-diablo.webp" alt="Foto do El Diablo (tatuagens de chamas pelo corpo, aparência séria)">
+      <div class="info">
+        <div class="nome">El Diablo</div>
+        <div class="interprete">Ex-líder de gangue com poder sobre o fogo</div>
+        <div class="desc-personagem">Carrega um passado trágico ligado aos próprios poderes e relutância em voltar a usá-los.</div>
+      </div>
+    </div>
+
+    <div class="card-personagem">
+      <img src="assets-guilherme/foto-crocodilo-assasino.jpg" alt="Foto do Crocodilo Assassino (pele escamosa, aparência de réptil humanoide)">
+      <div class="info">
+        <div class="nome">Crocodilo Assassino</div>
+        <div class="interprete">Mutante com características de réptil</div>
+        <div class="desc-personagem">Força bruta do grupo, isolado da sociedade por sua aparência e temperamento agressivo.</div>
+      </div>
+    </div>
+
+    <div class="card-personagem">
+      <img src="assets-guilherme/foto-katana.jpg" alt="Foto da Katana (espada em punho, traje de samurai moderno)">
+      <div class="info">
+        <div class="nome">Katana</div>
+        <div class="interprete">Guerreira leal ao coronel Flag</div>
+        <div class="desc-personagem">Empunha uma espada capaz de aprisionar a alma de quem ela corta, e serve como guarda-costas de confiança da equipe.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CURIOSIDADES -->
+<section id="curiosidades">
+  <div class="eyebrow">03 · Bastidores</div>
+  <h2 class="titulo-secao">Curiosidades</h2>
+
+  <div class="curiosidades">
+    <div class="curiosidade">
+      <div class="num">01</div>
+      <div>
+        <h3 style="font-size:1.1rem; margin-bottom:6px;">Elenco de peso</h3>
+        <p style="color:var(--texto-fraco);">O filme reuniu um elenco estrelado para dar vida a vilões clássicos dos quadrinhos, mesclando atores consagrados com nomes em ascensão em Hollywood.</p>
+      </div>
+    </div>
+    <div class="curiosidade">
+      <div class="num">02</div>
+      <div>
+        <h3 style="font-size:1.1rem; margin-bottom:6px;">Trilha sonora marcante</h3>
+        <p style="color:var(--texto-fraco);">A trilha sonora combina músicas de artistas conhecidos com uma pegada mais roqueira e irreverente, reforçando o tom rebelde da equipe.</p>
+      </div>
+    </div>
+    <div class="curiosidade">
+      <div class="num">03</div>
+      <div>
+        <h3 style="font-size:1.1rem; margin-bottom:6px;">Visual único para cada vilão</h3>
+        <p style="color:var(--texto-fraco);">Cada personagem recebeu um figurino e uma identidade visual própria, pensados para refletir sua personalidade e sua origem nos quadrinhos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERIA -->
+<section id="galeria">
+  <div class="eyebrow">04 · Galeria</div>
+  <h2 class="titulo-secao">Imagens do filme</h2>
+  <div class="galeria-grid">
+    <img src="assets-guilherme/foto-grupo.jpg" alt="Cena de ação em grupo (todo o esquadrão junto)">
+    <img src="assets-guilherme/foto-bastidores.jpg" alt="Foto dos bastidores das gravações">
+    <img src="assets-guilherme/foto-banner-alternativo.jpg" alt="Cartaz alternativo ou banner promocional">
+    <img src="assets-guilherme/foto-cidade-destruida.webp" alt="Foto de uma cena marcante da cidade destruída">
+  </div>
+</section>
+
+<footer>
+  <div class="rotulo">Task Force X</div>
+  <p>Página criada como conteúdo informativo sobre o filme.</p>
+
+  <div class="nav-botoes">
+    <a href="../index.html" class="botao secundario">🏠 Página inicial</a>
+  </div>
+</footer>
+
+<!-- BOTÃO FLUTUANTE: VOLTAR AO TOPO -->
+<button id="btnTopo" class="botao-topo" aria-label="Voltar ao topo" title="Voltar ao topo">↑</button>
+
+<style>
+  .botao-topo{
+    position:fixed;
+    right:24px;
+    bottom:24px;
+    width:52px;
+    height:52px;
+    border-radius:50%;
+    background:var(--amarelo);
+    color:var(--preto);
+    border:2px solid var(--amarelo);
+    font-family:'Anton', sans-serif;
+    font-size:1.4rem;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    z-index:50;
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(10px);
+    transition:opacity .25s ease, transform .25s ease, background .15s ease, color .15s ease, visibility .25s;
+    box-shadow:0 4px 14px rgba(0,0,0,.4);
+  }
+
+  .botao-topo.visivel{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+  }
+
+  .botao-topo:hover{
+    background:transparent;
+    color:var(--amarelo);
+  }
+
+  @media (max-width:600px){
+    .botao-topo{
+      right:16px;
+      bottom:16px;
+      width:46px;
+      height:46px;
+      font-size:1.2rem;
+    }
+  }
+</style>
+
+<script>
+  const btnTopo = document.getElementById('btnTopo');
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 500) {
+      btnTopo.classList.add('visivel');
+    } else {
+      btnTopo.classList.remove('visivel');
+    }
+  });
+
+  btnTopo.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+
+</body>
+</html>
