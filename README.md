@@ -57,6 +57,10 @@ Projeto acadêmico em HTML e CSS onde cada integrante da equipe criou uma págin
 
 ## 🚀 Como abrir o site
 
+🔗 **Acesse online:** https://klauz-code.github.io/site-da-equipe/
+
+Ou rode localmente:
+
 1. Faça o clone ou download deste repositório:
    ```bash
    git clone https://github.com/Klauz-code/site-da-equipe.git
